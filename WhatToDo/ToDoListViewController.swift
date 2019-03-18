@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    let itemArray = ["Belajar iOS","Mahir IOS","Buat Aplikasi iOS","Jadi iOS Expert"]
+    var itemArray = ["Belajar iOS","Mahir IOS","Buat Aplikasi iOS","Jadi iOS Expert"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,40 @@ class ToDoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
+    
+    //MARK - Menambah Item Baru
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        //Membuat variabel baru untuk scope addbuttonpressed
+        var textField = UITextField()
+        
+        //Membuat konstanta alert
+        let alert = UIAlertController(title: "Menambah Item WhatToDo", message: "", preferredStyle: .alert)
+        
+        //Membuat konstanta action
+        let action = UIAlertAction(title: "Menambah Item", style: .default) { (action) in
+            //Apa yang terjadi setelah user klik add button di UIAlert
+            self.itemArray.append(textField.text!)
+            
+            //Jurus untuk memasukkan item baru dari textfield
+            self.tableView.reloadData()
+        }
+        
+        //Membuat textfield agar user bisa mengisi Item baru
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Masukkan item baru"
+            textField = alertTextField
+            
+        }
+        
+        //Membuat deklarasi hubungan antara alert dan action
+        alert.addAction(action)
+        
+        //Mempresentasikan alert
+        present(alert, animated: true, completion: nil)
+    }
+    
 
 
 }
