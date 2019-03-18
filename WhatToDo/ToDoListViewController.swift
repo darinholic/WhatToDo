@@ -11,10 +11,19 @@ import UIKit
 class ToDoListViewController: UITableViewController {
     
     var itemArray = ["Belajar iOS","Mahir IOS","Buat Aplikasi iOS","Jadi iOS Expert"]
+    
+    //membuat konstanta userdefault
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Menampilkan item baru yang disimpan setelah app terminated
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
+        
     }
     
     //MARK - Buat Metode TableView DataSource
@@ -64,6 +73,9 @@ class ToDoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Menambah Item", style: .default) { (action) in
             //Apa yang terjadi setelah user klik add button di UIAlert
             self.itemArray.append(textField.text!)
+            
+            //set userdefault untuk save item list
+            self.defaults.setValue(self.itemArray, forKey: "ToDoListArray")
             
             //Jurus untuk memasukkan item baru dari textfield
             self.tableView.reloadData()
