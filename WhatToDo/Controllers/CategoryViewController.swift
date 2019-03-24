@@ -30,9 +30,7 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        
         cell.textLabel?.text = categories[indexPath.row].name
-        
         return cell
         
     }
@@ -45,7 +43,6 @@ class CategoryViewController: UITableViewController {
         } catch {
             print("Error saving context \(error)")
         }
-        
         self.tableView.reloadData()
     }
     
@@ -57,7 +54,7 @@ class CategoryViewController: UITableViewController {
         } catch {
             print("Error fetching data from context \(error)")
         }
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     
